@@ -23,13 +23,6 @@ php artisan serve
 
 Откройте: http://127.0.0.1:8000
 
-## Демо-аккаунты
-
-| Роль | Email | Пароль |
-|------|-------|--------|
-| Пользователь | demo@playgg.ru | password |
-| Администратор | admin@playgg.ru | password |
-
 ## Функциональность
 
 - Главная: хиты продаж, категории, лучшие скидки
@@ -45,10 +38,4 @@ php artisan serve
 - Laravel 13, Blade, Bootstrap 5, SQLite
 - Дизайн: тёмная игровая тема (фиолетово-циановая палитра)
 
-## Аналоги (референсы)
-
-- [Kupikod](https://kupikod.com/) — маркетплейс, Steam, кэшбэк
-- [STEAMPAY](https://steampay.com/) — каталог игр, скидки
-- [GabeStore](https://gabestore.ru/) — хиты, предзаказы
-- [IGM](https://igm.gg/) — пополнение сервисов
 
