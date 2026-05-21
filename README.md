@@ -8,7 +8,11 @@
 
 - PHP 8.3+
 - Composer
-- SQLite (по умолчанию) или MySQL
+- SQLite (по умолчанию) или MySQL / PostgreSQL
+
+## Деплой на Vercel
+
+Пошаговая инструкция: **[DEPLOY_VERCEL.md](DEPLOY_VERCEL.md)** (нужна внешняя PostgreSQL, не SQLite).
 
 ## Установка и запуск
 

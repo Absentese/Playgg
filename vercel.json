@@ -1,0 +1,43 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "regions": ["fra1"],
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "outputDirectory": "public",
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.2",
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/scripts/(.*)",
+      "dest": "/public/scripts/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/public/images/$1"
+    },
+    {
+      "src": "/js",
+      "dest": "/public/js"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/public/robots.txt"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ],
+  "env": {
+    "LOG_CHANNEL": "stderr",
+    "LOG_LEVEL": "error"
+  }
+}
