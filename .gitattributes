@@ -1,10 +1,15 @@
 * text=auto eol=lf
 
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
+*.blade.php diff=html text eol=lf
+*.css diff=css text eol=lf
+*.html diff=html text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md diff=markdown text eol=lf
+*.php diff=php text eol=lf
+*.sh text eol=lf
+
+railway/init-app.sh text eol=lf
 
 /.github export-ignore
 CHANGELOG.md export-ignore

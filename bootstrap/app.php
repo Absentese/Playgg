@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        if (env('RAILWAY_ENVIRONMENT') || env('RAILWAY_PUBLIC_DOMAIN')) {
+            $middleware->trustProxies(at: '*');
+        }
+
         $middleware->alias([
             'admin' => EnsureAdmin::class,
         ]);

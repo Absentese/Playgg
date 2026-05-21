@@ -1,0 +1,6 @@
+# Расширения PHP для Laravel (GD — обложки в админке, pdo_pgsql — PostgreSQL на Railway)
+[phases.setup]
+nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.gd", "php83Extensions.pdo_pgsql"]
+
+[phases.install]
+cmds = ["composer install --no-dev --optimize-autoloader --no-interaction"]
