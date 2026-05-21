@@ -3,10 +3,7 @@
 .env
 .env.backup
 .env.production
-.phpactor.json
 .phpunit.result.cache
-/.codex
-/.cursor/
 /.idea
 /.nova
 /.phpunit.cache
@@ -21,7 +18,4 @@
 /storage/*.key
 /storage/pail
 /vendor
-_ide_helper.php
-Homestead.json
-Homestead.yaml
 Thumbs.db
