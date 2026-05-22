@@ -39,7 +39,14 @@
 
 @push('styles')
 <style>
-    .navbar-search-wrap .search-suggestions { display: flex; flex-direction: column; width: 100%; }
+    .navbar-search-wrap .search-suggestions {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .navbar-search-wrap .search-suggestions::-webkit-scrollbar { display: none; width: 0; height: 0; }
     .navbar-search-wrap .search-suggestions__item { display: flex; width: 100%; box-sizing: border-box; }
     .navbar-search-wrap .search-suggestions__all { display: block; width: 100%; }
 </style>

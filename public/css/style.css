@@ -208,10 +208,18 @@ main { flex: 1; }
     max-height: min(24rem, 70vh);
     overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     background: rgba(14, 18, 32, 0.98);
     border: 1px solid rgba(99, 102, 241, 0.35);
     border-radius: 12px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.search-suggestions::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .search-suggestions__item {
