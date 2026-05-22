@@ -27,12 +27,12 @@
         </div>
         @endif
         <p class="product-card__desc small mb-3 flex-grow-1">{{ Str::limit($product->description, 140) }}</p>
-        <div class="product-card__footer d-flex justify-content-between align-items-center mt-auto">
-            <div>
-                <span class="product-price">{{ number_format($product->price, 0, ',', ' ') }} ₽</span>
+        <div class="product-card__footer d-flex justify-content-between align-items-end mt-auto gap-2">
+            <div class="product-card__prices">
                 @if($product->old_price && $product->old_price > $product->price)
-                <span class="product-price-old ms-2">{{ number_format($product->old_price, 0, ',', ' ') }} ₽</span>
+                <span class="product-price-old">{{ number_format($product->old_price, 0, ',', ' ') }}&nbsp;₽</span>
                 @endif
+                <span class="product-price">{{ number_format($product->price, 0, ',', ' ') }}&nbsp;₽</span>
             </div>
             @auth
             <form action="{{ route('cart.add', $product) }}" method="POST" class="d-inline">

@@ -35,12 +35,12 @@
                         <span class="badge badge-deal">-{{ $product->discountPercent() }}%</span>
                         @endif
                     </div>
-                    <p class="shop-product-price mb-4">
-                        {{ number_format($product->price, 0, ',', ' ') }} ₽
+                    <div class="shop-product-price mb-4">
                         @if($product->hasDiscount())
-                        <span class="product-price-old ms-2">{{ number_format($product->old_price, 0, ',', ' ') }} ₽</span>
+                        <span class="product-price-old d-block">{{ number_format($product->old_price, 0, ',', ' ') }}&nbsp;₽</span>
                         @endif
-                    </p>
+                        <span class="shop-product-price__current d-block">{{ number_format($product->price, 0, ',', ' ') }}&nbsp;₽</span>
+                    </div>
                     <h5 class="fw-semibold mb-2">Описание</h5>
                     <p class="shop-product-description">{{ $product->description }}</p>
                     @auth
