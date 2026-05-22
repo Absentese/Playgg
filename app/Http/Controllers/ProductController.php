@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,10 +17,7 @@ class ProductController extends Controller
         $products = Product::query()->where('available', true)->with('category');
 
         if ($searchQuery !== '') {
-            $products->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'like', "%{$searchQuery}%")
-                    ->orWhere('description', 'like', "%{$searchQuery}%");
-            });
+            $products->search($searchQuery);
         }
 
         if ($categorySlug !== 'all') {
@@ -87,6 +85,43 @@ class ProductController extends Controller
         }
 
         return $params;
+    }
+
+    public function search(Request $request): JsonResponse
+    {
+        $searchQuery = trim((string) $request->query('q', ''));
+
+        if (mb_strlen($searchQuery) < 1) {
+            return response()->json(['items' => []]);
+        }
+
+        $lower = mb_strtolower($searchQuery, 'UTF-8');
+        $namePrefix = $lower.'%';
+        $contains = '%'.$lower.'%';
+
+        $products = Product::query()
+            ->where('available', true)
+            ->search($searchQuery)
+            ->orderByRaw(
+                'CASE WHEN LOWER(name) LIKE ? THEN 0 WHEN LOWER(slug) LIKE ? THEN 1 ELSE 2 END',
+                [$namePrefix, $contains],
+            )
+            ->orderBy('name')
+            ->limit(8)
+            ->get();
+
+        return response()->json([
+            'items' => $products->map(fn (Product $product) => [
+                'name' => $product->name,
+                'url' => route('product.show', $product),
+                'image' => $product->imageUrl(),
+                'platform' => $product->platform,
+                'price' => (float) $product->price,
+                'old_price' => $product->old_price ? (float) $product->old_price : null,
+                'discount_percent' => $product->discountPercent(),
+            ]),
+            'catalog_url' => route('products', self::catalogParams($request, ['q' => $searchQuery])),
+        ]);
     }
 
     public function show(Product $product)

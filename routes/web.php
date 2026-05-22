@@ -32,6 +32,9 @@ Route::post('/support/chat', [SupportChatController::class, 'chat'])
     ->name('support.chat');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/products/search', [ProductController::class, 'search'])
+    ->middleware('throttle:60,1')
+    ->name('products.search');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
 Route::middleware('guest')->group(function () {

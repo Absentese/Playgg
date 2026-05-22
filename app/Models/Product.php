@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,6 +23,26 @@ class Product extends Model
             'is_featured' => 'boolean',
             'is_preorder' => 'boolean',
         ];
+    }
+
+    /**
+     * Регистронезависимый поиск по названию, slug и жанру (без description — там «d» и др. встречаются почти везде).
+     */
+    public function scopeSearch(Builder $query, string $term): Builder
+    {
+        $term = trim($term);
+
+        if ($term === '') {
+            return $query;
+        }
+
+        $like = '%'.mb_strtolower($term, 'UTF-8').'%';
+
+        return $query->where(function (Builder $q) use ($like) {
+            $q->whereRaw('LOWER(name) LIKE ?', [$like])
+                ->orWhereRaw('LOWER(slug) LIKE ?', [$like])
+                ->orWhereRaw('LOWER(genre) LIKE ?', [$like]);
+        });
     }
 
     public function category(): BelongsTo
