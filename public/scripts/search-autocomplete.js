@@ -37,7 +37,7 @@
             return;
         }
         const hasValue = input.value.trim() !== '';
-        clearBtn.classList.toggle('d-none', !hasValue);
+        wrap.classList.toggle('navbar-search-wrap--has-value', hasValue);
     };
 
     const renderItems = (data) => {

@@ -5,7 +5,7 @@
         ? route('products', ProductController::catalogParams(request(), ['q' => null]))
         : route('products');
 @endphp
-<div class="navbar-search-wrap" data-search-autocomplete data-clear-url="{{ $clearSearchUrl }}">
+<div class="navbar-search-wrap {{ $searchValue !== '' ? 'navbar-search-wrap--has-value' : '' }}" data-search-autocomplete data-clear-url="{{ $clearSearchUrl }}">
     <form method="GET" action="{{ route('products') }}" class="navbar-search-form" role="search">
         <label class="site-search navbar-search" for="navbar-search-input">
             <span class="site-search__icon" aria-hidden="true"><i class="fas fa-search"></i></span>
@@ -17,15 +17,20 @@
                 value="{{ $searchValue }}"
                 placeholder="Поиск игр"
                 autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
                 enterkeyhint="search"
                 role="searchbox"
                 aria-autocomplete="list"
                 aria-controls="navbar-search-suggestions"
+                data-lpignore="true"
+                data-form-type="other"
                 data-search-input
             >
             <button
                 type="button"
-                class="site-search__clear {{ $searchValue === '' ? 'd-none' : '' }}"
+                class="site-search__clear"
                 title="Очистить поиск"
                 aria-label="Очистить поиск"
                 data-search-clear
@@ -49,6 +54,9 @@
     .navbar-search-wrap .search-suggestions::-webkit-scrollbar { display: none; width: 0; height: 0; }
     .navbar-search-wrap .search-suggestions__item { display: flex; width: 100%; box-sizing: border-box; }
     .navbar-search-wrap .search-suggestions__all { display: block; width: 100%; }
+    .navbar-search-wrap .site-search__input::-ms-clear,
+    .navbar-search-wrap .site-search__input::-ms-reveal { display: none; width: 0; height: 0; }
+    .navbar-search-wrap .site-search__input::-webkit-search-cancel-button { display: none; }
 </style>
 @endpush
 

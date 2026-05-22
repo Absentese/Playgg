@@ -161,8 +161,19 @@ main { flex: 1; }
 }
 
 .site-search__input::-webkit-search-cancel-button,
-.site-search__input::-webkit-search-decoration {
+.site-search__input::-webkit-search-decoration,
+.site-search__input::-webkit-search-results-button,
+.site-search__input::-webkit-search-results-decoration {
     display: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.site-search__input::-ms-clear,
+.site-search__input::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .site-search__input::placeholder {
@@ -171,7 +182,7 @@ main { flex: 1; }
 
 .site-search__clear {
     flex-shrink: 0;
-    display: inline-flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 1.4rem;
@@ -184,6 +195,10 @@ main { flex: 1; }
     text-decoration: none;
     cursor: pointer;
     transition: color 0.2s, background 0.2s;
+}
+
+.navbar-search-wrap--has-value .site-search__clear {
+    display: inline-flex;
 }
 
 .site-search__clear:hover {
