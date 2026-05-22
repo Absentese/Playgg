@@ -26,7 +26,8 @@ class Product extends Model
     }
 
     /**
-     * Регистронезависимый поиск по названию, slug и жанру (без description — там «d» и др. встречаются почти везде).
+     * Регистронезависимый поиск по названию, slug и жанру.
+     * Одна буква — только начало названия; длиннее — по словам в названии и частям slug (без ложных «of»).
      */
     public function scopeSearch(Builder $query, string $term): Builder
     {
@@ -36,12 +37,30 @@ class Product extends Model
             return $query;
         }
 
-        $like = '%'.mb_strtolower($term, 'UTF-8').'%';
+        $lower = mb_strtolower($term, 'UTF-8');
+        $length = mb_strlen($lower);
 
-        return $query->where(function (Builder $q) use ($like) {
-            $q->whereRaw('LOWER(name) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(slug) LIKE ?', [$like])
-                ->orWhereRaw('LOWER(genre) LIKE ?', [$like]);
+        return $query->where(function (Builder $q) use ($lower, $length) {
+            if ($length === 1) {
+                $q->whereRaw('LOWER(name) LIKE ?', [$lower.'%']);
+
+                return;
+            }
+
+            $q->where(function (Builder $nameQuery) use ($lower) {
+                $nameQuery->whereRaw('LOWER(name) LIKE ?', [$lower.'%']);
+
+                foreach ([' ', ': ', ' — ', '-', '–'] as $separator) {
+                    $nameQuery->orWhereRaw('LOWER(name) LIKE ?', ['%'.$separator.$lower.'%']);
+                }
+            });
+
+            $q->orWhereRaw('LOWER(slug) LIKE ?', [$lower.'-%'])
+                ->orWhereRaw('LOWER(slug) LIKE ?', ['%-'.$lower.'-%'])
+                ->orWhereRaw('LOWER(slug) LIKE ?', ['%-'.$lower])
+                ->orWhereRaw('LOWER(slug) = ?', [$lower]);
+
+            $q->orWhereRaw('LOWER(genre) LIKE ?', ['%'.$lower.'%']);
         });
     }
 

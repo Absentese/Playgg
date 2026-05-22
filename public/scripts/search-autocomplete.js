@@ -163,13 +163,19 @@
 
     if (clearBtn) {
         clearBtn.addEventListener('click', (event) => {
-            if (clearBtn.tagName === 'BUTTON') {
-                event.preventDefault();
-                input.value = '';
-                input.focus();
-                toggleClear();
-                hidePanel();
+            event.preventDefault();
+            const clearUrl = wrap.dataset.clearUrl;
+
+            if (clearUrl && window.location.pathname === new URL(clearUrl, window.location.origin).pathname) {
+                window.location.href = clearUrl;
+
+                return;
             }
+
+            input.value = '';
+            input.focus();
+            toggleClear();
+            hidePanel();
         });
     }
 
