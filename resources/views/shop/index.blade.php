@@ -3,7 +3,7 @@
 @section('title', 'Главная')
 
 @section('content')
-<section class="hero-section text-white py-5">
+<section class="hero-section py-5">
     <div class="hero-section__bg" aria-hidden="true">
         <img src="{{ asset('images/hero-gaming.jpg') }}" alt="">
     </div>
@@ -63,7 +63,7 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title">Лучшие скидки</h2>
+            <h2 class="section-title section-title--decor">Лучшие скидки</h2>
             <p class="section-subtitle">Как на SteamPay и GabeStore — выгодно каждый день</p>
         </div>
         @include('shop.partials.products_grid', ['products' => $saleProducts])
@@ -74,7 +74,7 @@
 <section id="why-playgg" class="py-5 why-playgg" style="background: var(--bg-elevated);">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title">Почему {{ config('app.name') }}</h2>
+            <h2 class="section-title section-title--decor">Почему {{ config('app.name') }}</h2>
             <p class="section-subtitle">Мы за честные цены, как у крупных площадок</p>
         </div>
         <div class="row g-4">

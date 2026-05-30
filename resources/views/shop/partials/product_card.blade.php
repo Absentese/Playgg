@@ -13,7 +13,7 @@
     </div>
     <div class="card-body d-flex flex-column">
         <h5 class="card-title product-card__title mb-2">
-            <a href="{{ route('product.show', $product) }}" class="text-decoration-none text-white">{{ $product->name }}</a>
+            <a href="{{ route('product.show', $product) }}" class="text-decoration-none">{{ $product->name }}</a>
         </h5>
         @if($tags = $product->displayTags())
         <div class="product-card__tags mb-2">

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <script>(function(){try{var t=localStorage.getItem('playgg-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', config('app.name')) — интернет-магазин цифровых игр</title>
@@ -33,6 +34,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('contacts') }}"><i class="fas fa-envelope me-1 opacity-75"></i> Контакты</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-2">
+                    @include('shop.partials.theme_toggle')
                     @auth
                     <a href="{{ route('cart') }}" class="btn btn-outline-light position-relative rounded-pill px-3">
                         <i class="fas fa-shopping-cart"></i>
@@ -123,6 +125,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('scripts/theme.js') }}"></script>
 <script src="{{ asset('scripts/support-chat.js') }}"></script>
 <script src="{{ asset('scripts/phone-mask.js') }}"></script>
 @stack('scripts')

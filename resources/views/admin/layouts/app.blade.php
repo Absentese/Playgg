@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <script>(function(){try{var t=localStorage.getItem('playgg-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Админ-панель') — playgg</title>
@@ -50,6 +51,7 @@
         <header class="admin-header">
             <h1 class="admin-page-title mb-0">@yield('page_title', 'Панель управления')</h1>
             <div class="d-flex align-items-center gap-3">
+                @include('shop.partials.theme_toggle')
                 <span class="text-muted small">{{ auth()->user()->name }}</span>
                 <form action="{{ route('logout') }}" method="POST">@csrf
                     <button type="submit" class="btn btn-sm btn-outline-secondary">Выйти</button>
@@ -74,6 +76,7 @@
     </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('scripts/theme.js') }}"></script>
 <script src="{{ asset('scripts/phone-mask.js') }}"></script>
 @stack('scripts')
 </body>
